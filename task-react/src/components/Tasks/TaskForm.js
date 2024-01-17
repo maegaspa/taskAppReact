@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { useAuthState } from '../../context/AuthContext'; // Assurez-vous d'importer le bon hook pour l'état d'authentification
+import { useAuthState } from '../../context/AuthContext';
 import { useDarkMode } from '../../context/DarkModeContext';
 import useStyles from '../../styles/styles';
 
@@ -15,7 +15,7 @@ const TaskForm = () => {
 	const [taskTitle, setTaskTitle] = useState('');
 	const [taskDescription, setTaskDescription] = useState('');
 	const { darkMode, toggleDarkMode } = useDarkMode();
-	const { isAuthenticated } = useAuthState(); // Assurez-vous d'ajuster cela en fonction de votre logique d'authentification
+	const { isAuthenticated } = useAuthState();
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';

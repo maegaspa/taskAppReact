@@ -27,10 +27,7 @@ const Register = () => {
 		try {
 			const token = await authService.register(username, password);
 
-			// Store the token in a secure cookie with expiration
 			Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
-
-			// Dispatch the login action to update the authentication context
 			dispatch({ type: 'LOGIN', payload: { token } });
 		} catch (error) {
 			// Handle errors

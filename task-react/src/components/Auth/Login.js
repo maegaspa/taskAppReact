@@ -31,12 +31,8 @@ const Login = () => {
 		try {
 			const token = await authService.login(username, password);
 
-			// Stocker le token dans un cookie sécurisé avec une expiration
 			Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
-
-			// Dispatch l'action de login pour mettre à jour le contexte d'authentification
 			dispatch({ type: 'LOGIN', payload: { token } });
-
 			navigate('/tasks/create');
 		} catch (error) {
 			// Handle errors

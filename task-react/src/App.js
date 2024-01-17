@@ -14,7 +14,6 @@ const App = () => {
     const initialToken = Cookies.get('token');
 
     useEffect(() => {
-        // Vérifiez si un token existe au démarrage de l'application
         dispatch({ type: 'CHECK_TOKEN', payload: { token: initialToken } });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
