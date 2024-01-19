@@ -33,7 +33,7 @@ const Login = () => {
 
 			Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
 			dispatch({ type: 'LOGIN', payload: { token } });
-			navigate('/tasks/create');
+			navigate('/tasks');
 		} catch (error) {
 			// Handle errors
 		}

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate  } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/AuthContext';
 import authService from '../../services/authService';
 import Cookies from 'js-cookie';
@@ -15,6 +16,7 @@ import useStyles from '../../styles/styles';
 const Register = () => {
 	const classes = useStyles();
 	const dispatch = useAuthDispatch();
+	const navigate = useNavigate ();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const { darkMode, toggleDarkMode } = useDarkMode();
@@ -29,6 +31,7 @@ const Register = () => {
 
 			Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
 			dispatch({ type: 'LOGIN', payload: { token } });
+			navigate('/tasks');
 		} catch (error) {
 			// Handle errors
 		}
