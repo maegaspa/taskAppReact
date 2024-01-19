@@ -10,6 +10,11 @@ const taskService = {
 		const response = await axios.post('/api/tasks', { title, description });
 		return response.data;
 	},
+
+	async getTaskById(taskId) {
+		const response = await axios.get(`/api/tasks/${taskId}`);
+		return response.data;
+	},
 };
 
 export default taskService;
