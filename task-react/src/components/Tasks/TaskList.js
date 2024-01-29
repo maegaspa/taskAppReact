@@ -22,11 +22,8 @@ const TaskList = () => {
 
 	useEffect(() => {
 		if (!isAuthenticated) {
-			// Redirect to login or handle unauthorized access
-			// You can use a navigation library like react-router-dom to navigate
 			console.log('User not authenticated. Redirecting to login.');
-			// Example with react-router-dom:
-			// history.push('/login');
+			navigate('/login');
 			return;
 		}
 		const fetchTasks = async () => {
