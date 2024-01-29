@@ -20,6 +20,20 @@ const useStyles = makeStyles((theme) => ({
 	button: {
 		marginTop: theme.spacing(2),
 	},
+	rowC: {
+		display: 'flex',
+		textAlign: 'center',
+	},
+	rowChild: {
+		display: 'inline-block',
+		verticalAlign: 'middle',
+	},
+	rowChildStar: {
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(5),
+		display: 'inline-block',
+		verticalAlign: 'middle',
+	}
 }));
 
 export default useStyles;
