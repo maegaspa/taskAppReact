@@ -44,13 +44,16 @@ const useStyles = makeStyles((theme) => ({
 		"& .MuiIconButton-root": {
 			color: "lightgray", // Changez la couleur de l'icône en blanc dans le mode sombre
 		},
-
-	},
-	datePickerPopperDark: {
 		"& .MuiPaper-root": {
 			backgroundColor: "#424242", // Change la couleur de fond du calendrier ouvert dans le mode sombre
 		},
-		"& .MuiPickersPopper-colorPopup .MuiPaper-root base-Popper-root .MuiPickersPopper-root": {
+
+	},
+	datePickerPopperDark: {
+		"& .MuiPickersPopper-colorPopup .MuiPaper-root": {
+			backgroundColor: '#424242', // Change la couleur de fond du calendrier ouvert dans le mode sombre
+		},
+		"& .MuiPickersPopper-paper": {
 			backgroundColor: '#424242', // Change la couleur de fond du calendrier ouvert dans le mode sombre
 		},
 	},

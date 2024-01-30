@@ -79,7 +79,11 @@ const TaskForm = () => {
 									<div className={classes.rowChild}>
 										<LocalizationProvider dateAdapter={AdapterDayjs}>
 											<DemoContainer components={['DatePicker']}>
-												<DatePicker label="Deadline" defaultValue={dayjs()} className={darkMode ? classes.datePickerDark : ""} PopoverProps={{className: darkMode ? classes.datePickerPopperDark : '',}}/>
+												<DatePicker
+													label="Deadline"
+													defaultValue={dayjs()}
+													className={darkMode ? classes.datePickerDark : ""}
+													PopperProps={{className: darkMode ? classes.datePickerPopperDark : '',}}/>
 											</DemoContainer>
 										</LocalizationProvider>
 									</div>
