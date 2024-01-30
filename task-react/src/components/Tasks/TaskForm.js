@@ -74,7 +74,7 @@ const TaskForm = () => {
 									value={taskDescription}
 									onChange={(e) => setTaskDescription(e.target.value)}
 								/>
-								<div className={classes.rowC} >
+								<div className={classes.rowParent} >
 									<div className={classes.rowChild}>
 										<LocalizationProvider color="primary" dateAdapter={AdapterDayjs}>
 											<DemoContainer components={['DatePicker']}>

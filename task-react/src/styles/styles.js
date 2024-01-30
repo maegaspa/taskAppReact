@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 	button: {
 		marginTop: theme.spacing(2),
 	},
-	rowC: {
+	rowParent: {
 		display: 'flex',
 		textAlign: 'center',
 	},
