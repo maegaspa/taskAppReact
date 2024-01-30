@@ -15,7 +15,9 @@ import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import taskService from '../../services/taskService';
+import Cookies from 'js-cookie';
 
 
 const TaskForm = () => {
@@ -23,7 +25,7 @@ const TaskForm = () => {
 	const [taskTitle, setTaskTitle] = useState('');
 	const [taskDescription, setTaskDescription] = useState('');
 	const [isFavorite, setIsFavorite] = useState(false);
-
+	const [dueDate, setDueDate] = useState(null);
 
 	const { darkMode, toggleDarkMode } = useDarkMode();
 	const { isAuthenticated } = useAuthState();
@@ -33,8 +35,20 @@ const TaskForm = () => {
 		document.body.style.color = darkMode ? 'white' : 'black';
 	}, [darkMode]);
 
-	const handleSaveTask = () => {
-		// Logique pour sauvegarder la tâche
+	const handleSaveTask = async () => {
+		try {
+			const token = Cookies.get();
+			const newTask = await taskService.createTask(taskTitle, taskDescription, isFavorite, dueDate, token.token);
+
+			console.log('Task saved successfully:', newTask);
+
+			setTaskTitle('');
+			setTaskDescription('');
+			setIsFavorite(false);
+			setDueDate();
+		} catch (error) {
+			console.error('Error saving task:', error);
+		}
 	};
 
 	const handleFavoriteToggle = () => {
@@ -78,10 +92,16 @@ const TaskForm = () => {
 								<div className={classes.rowParent} >
 									<div className={classes.rowChild}>
 										<LocalizationProvider dateAdapter={AdapterDayjs}>
-											<DemoContainer components={['DatePicker']}>
-												<DatePicker
+											<DemoContainer components={['DateTimePicker']}>
+												<DateTimePicker
 													label="Deadline"
 													defaultValue={dayjs()}
+													value={dueDate}
+													onChange={(date) => {
+														const d = new Date(date);
+														console.log(d);
+														setDueDate(d)
+													}}
 													className={darkMode ? classes.datePickerDark : ""}
 													PopperProps={{className: darkMode ? classes.datePickerPopperDark : '',}}/>
 											</DemoContainer>
