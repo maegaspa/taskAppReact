@@ -17,6 +17,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+
 const TaskForm = () => {
 	const classes = useStyles();
 	const [taskTitle, setTaskTitle] = useState('');
@@ -76,9 +77,9 @@ const TaskForm = () => {
 								/>
 								<div className={classes.rowParent} >
 									<div className={classes.rowChild}>
-										<LocalizationProvider color="primary" dateAdapter={AdapterDayjs}>
+										<LocalizationProvider dateAdapter={AdapterDayjs}>
 											<DemoContainer components={['DatePicker']}>
-												<DatePicker label="Uncontrolled picker" defaultValue={dayjs()} />
+												<DatePicker label="Deadline" defaultValue={dayjs()} className={darkMode ? classes.datePickerDark : ""} PopoverProps={{className: darkMode ? classes.datePickerPopperDark : '',}}/>
 											</DemoContainer>
 										</LocalizationProvider>
 									</div>

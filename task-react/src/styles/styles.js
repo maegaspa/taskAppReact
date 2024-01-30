@@ -33,7 +33,27 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: theme.spacing(5),
 		display: 'inline-block',
 		verticalAlign: 'middle',
-	}
+	},
+	datePickerDark: {
+		"& .MuiInputBase-input": {
+			color: "lightgray", // Changez la couleur du texte en blanc dans le mode sombre
+		},
+		"& .MuiInputLabel-root": {
+			color: "lightgray", // Changez la couleur du label en blanc dans le mode sombre
+		},
+		"& .MuiIconButton-root": {
+			color: "lightgray", // Changez la couleur de l'icône en blanc dans le mode sombre
+		},
+
+	},
+	datePickerPopperDark: {
+		"& .MuiPaper-root": {
+			backgroundColor: "#424242", // Change la couleur de fond du calendrier ouvert dans le mode sombre
+		},
+		"& .MuiPickersPopper-colorPopup .MuiPaper-root base-Popper-root .MuiPickersPopper-root": {
+			backgroundColor: '#424242', // Change la couleur de fond du calendrier ouvert dans le mode sombre
+		},
+	},
 }));
 
 export default useStyles;
