@@ -1,16 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
 import { AppProvider } from './context';
 import Cookies from 'js-cookie';
 
+import { createRoot } from 'react-dom/client';
+
 const initialToken = Cookies.get('token');
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
     <React.StrictMode>
         <AppProvider>
             <App />
         </AppProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );
