@@ -18,6 +18,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import taskService from '../../services/taskService';
 import Cookies from 'js-cookie';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Fade from '@mui/material/Fade';
 
 
 const TaskForm = () => {
@@ -29,14 +32,31 @@ const TaskForm = () => {
 
 	const { darkMode, toggleDarkMode } = useDarkMode();
 	const { isAuthenticated } = useAuthState();
+	const [errorMessage, setErrorMessage] = useState('');
+	const [successMessage, setSuccessMessage] = useState('');
+
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';
 		document.body.style.color = darkMode ? 'white' : 'black';
 	}, [darkMode]);
 
+	const handleCloseAlert = (type) => {
+		if (type === 'error') {
+			setErrorMessage('');
+		} else if (type === 'success') {
+			setSuccessMessage('');
+		}
+	};
 	const handleSaveTask = async () => {
 		try {
+			if (!taskTitle || !taskDescription) {
+				setErrorMessage('Please fill in both the title and description fields.');
+				setTimeout(() => {
+					handleCloseAlert('error');
+				}, 5000);
+				return;
+			}
 			const token = Cookies.get();
 			const newTask = await taskService.createTask(taskTitle, taskDescription, isFavorite, dueDate, token.token);
 
@@ -46,6 +66,11 @@ const TaskForm = () => {
 			setTaskDescription('');
 			setIsFavorite(false);
 			setDueDate();
+			setErrorMessage('')
+			setSuccessMessage('Task saved successfully.');
+			setTimeout(() => {
+				handleCloseAlert('success');
+			}, 5000);
 		} catch (error) {
 			console.error('Error saving task:', error);
 		}
@@ -63,6 +88,18 @@ const TaskForm = () => {
 					label="Dark Mode"
 				/>
 			</div>
+			<Fade in={errorMessage !== ''}>
+				<Alert severity="error" className={classes.alert}>
+					<AlertTitle>Error</AlertTitle>
+					{errorMessage}
+				</Alert>
+			</Fade>
+			<Fade in={successMessage !== ''}>
+				<Alert severity="success" className={classes.alert}>
+					<AlertTitle>Success</AlertTitle>
+					{successMessage}
+				</Alert>
+			</Fade>
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
 				<div className={classes.root}>
 					<Paper className={classes.paper} elevation={3}>
@@ -72,7 +109,7 @@ const TaskForm = () => {
 						{isAuthenticated && (
 							<form>
 								<TextField
-									label="Task Title"
+									label="Task Title *"
 									variant="outlined"
 									margin="normal"
 									fullWidth
@@ -80,7 +117,7 @@ const TaskForm = () => {
 									onChange={(e) => setTaskTitle(e.target.value)}
 								/>
 								<TextField
-									label="Task Description"
+									label="Task Description *"
 									variant="outlined"
 									margin="normal"
 									fullWidth

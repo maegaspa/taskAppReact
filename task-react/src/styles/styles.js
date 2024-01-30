@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'inline-block',
 		verticalAlign: 'middle',
 	},
+	alert: {
+		width: '100%',
+		marginBottom: theme.spacing(2),
+	},
 	datePickerDark: {
 		"& .MuiInputBase-input": {
 			color: "lightgray", // Changez la couleur du texte en blanc dans le mode sombre
