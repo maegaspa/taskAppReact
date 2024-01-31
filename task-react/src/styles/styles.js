@@ -46,25 +46,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 	datePickerDark: {
 		"& .MuiInputBase-input": {
-			color: "lightgray", // Changez la couleur du texte en blanc dans le mode sombre
+			color: "lightgray",
 		},
 		"& .MuiInputLabel-root": {
-			color: "lightgray", // Changez la couleur du label en blanc dans le mode sombre
+			color: "lightgray",
 		},
 		"& .MuiIconButton-root": {
-			color: "lightgray", // Changez la couleur de l'icône en blanc dans le mode sombre
+			color: "lightgray",
 		},
 		"& .MuiPaper-root": {
-			backgroundColor: "#424242", // Change la couleur de fond du calendrier ouvert dans le mode sombre
+			backgroundColor: "#424242",
 		},
 
 	},
 	datePickerPopperDark: {
 		"& .MuiPickersPopper-colorPopup .MuiPaper-root": {
-			backgroundColor: '#424242', // Change la couleur de fond du calendrier ouvert dans le mode sombre
+			backgroundColor: '#424242', // KO
 		},
 		"& .MuiPickersPopper-paper": {
-			backgroundColor: '#424242', // Change la couleur de fond du calendrier ouvert dans le mode sombre
+			backgroundColor: '#424242', // KO
 		},
 	},
 }));
