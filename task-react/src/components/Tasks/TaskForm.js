@@ -77,10 +77,10 @@ const TaskForm = (props) => {
 			const token = Cookies.get();
 			if (propsData) {
 				const updateTask = await taskService.updateTask(token.token, propsData.selectedTask['_id'], taskTitle, taskDescription, isFavorite, dueDate);
-				console.log('Task saved successfully:', updateTask);
+				console.log('Task successfully saved:', updateTask);
 			} else {
 				const newTask = await taskService.createTask(token.token, taskTitle, taskDescription, isFavorite, dueDate);
-				console.log('Task saved successfully:', newTask);
+				console.log('Task successfully created:', newTask);
 			}
 
 			setTaskTitle('');
