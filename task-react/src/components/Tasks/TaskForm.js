@@ -75,9 +75,13 @@ const TaskForm = (props) => {
 				return;
 			}
 			const token = Cookies.get();
-			const newTask = await taskService.createTask(token.token, taskTitle, taskDescription, isFavorite, dueDate);
-
-			console.log('Task saved successfully:', newTask);
+			if (propsData) {
+				const updateTask = await taskService.updateTask(token.token, propsData.selectedTask['_id'], taskTitle, taskDescription, isFavorite, dueDate);
+				console.log('Task saved successfully:', updateTask);
+			} else {
+				const newTask = await taskService.createTask(token.token, taskTitle, taskDescription, isFavorite, dueDate);
+				console.log('Task saved successfully:', newTask);
+			}
 
 			setTaskTitle('');
 			setTaskDescription('');
