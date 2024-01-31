@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		marginBottom: theme.spacing(2),
 	},
+	listItem: {
+		border: '1px solid rgba(0, 0, 0, 0.2)',
+		borderRadius: '5px',
+		marginBottom: '10px',
+		boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+	},
 	datePickerDark: {
 		"& .MuiInputBase-input": {
 			color: "lightgray", // Changez la couleur du texte en blanc dans le mode sombre

@@ -21,32 +21,49 @@ import Cookies from 'js-cookie';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
+import {useNavigate} from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 
-const TaskForm = () => {
+const TaskForm = (props) => {
 	const classes = useStyles();
 	const [taskTitle, setTaskTitle] = useState('');
 	const [taskDescription, setTaskDescription] = useState('');
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [dueDate, setDueDate] = useState(null);
-
+	const navigate = useNavigate ();
 	const { darkMode, toggleDarkMode } = useDarkMode();
 	const { isAuthenticated } = useAuthState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
 
+	const location = useLocation();
+	const propsData = location.state;
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';
 		document.body.style.color = darkMode ? 'white' : 'black';
 	}, [darkMode]);
 
+	useEffect(() => {
+		if (propsData && propsData.selectedTask) {
+			const selectedTask = propsData.selectedTask;
+			setTaskTitle(selectedTask.title);
+			setTaskDescription(selectedTask.description);
+			setIsFavorite(selectedTask.isFavorite);
+			setDueDate(new dayjs(selectedTask.dueDate));
+		}
+	}, [propsData]);
 	const handleCloseAlert = (type) => {
 		if (type === 'error') {
 			setErrorMessage('');
 		} else if (type === 'success') {
 			setSuccessMessage('');
 		}
+	};
+
+	const handleCancel =  () => {
+		navigate('/tasks');
 	};
 	const handleSaveTask = async () => {
 		try {
@@ -58,7 +75,7 @@ const TaskForm = () => {
 				return;
 			}
 			const token = Cookies.get();
-			const newTask = await taskService.createTask(taskTitle, taskDescription, isFavorite, dueDate, token.token);
+			const newTask = await taskService.createTask(token.token, taskTitle, taskDescription, isFavorite, dueDate);
 
 			console.log('Task saved successfully:', newTask);
 
@@ -136,7 +153,6 @@ const TaskForm = () => {
 													value={dueDate}
 													onChange={(date) => {
 														const d = new Date(date);
-														console.log(d);
 														setDueDate(d)
 													}}
 													className={darkMode ? classes.datePickerDark : ""}
@@ -158,6 +174,15 @@ const TaskForm = () => {
 									onClick={handleSaveTask}
 								>
 									Save Task
+								</Button>
+								<Button
+									variant="contained"
+									color="default"
+									fullWidth
+									className={classes.button}
+									onClick={handleCancel}
+								>
+									Cancel
 								</Button>
 							</form>
 						)}

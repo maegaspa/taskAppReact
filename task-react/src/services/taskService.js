@@ -1,37 +1,83 @@
 import api from '../utils/api';
 
 const taskService = {
-	async getAllTasks() {
-		const response = await api.get('/api/tasks');
-		return response.data;
+	async getAllTasks(token) {
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept' : 'application/json',
+					'Authorization': token
+				}
+			};
+
+			const response = await api.get('/api/tasks/tasks', config);
+			return response.data;
+		} catch (error) {
+			throw new Error('Error fetching tasks: ' + error.message);
+		}
 	},
 
-	async createTask(title, description, isFavorite = false, dueDate = null, token) {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept' : 'application/json',
-				'Authorization': token
-			}
-		};
+	async createTask(token, title, description, isFavorite = false, dueDate = null) {
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept' : 'application/json',
+					'Authorization': token
+				}
+			};
 
-		const response = await api.post('/api/tasks/tasks', { title, description, isFavorite, dueDate }, config);
-		return response.data;
+			const response = await api.post('/api/tasks/tasks', { title, description, isFavorite, dueDate }, config);
+			return response.data;
+		} catch (error) {
+			throw new Error('Error creating task: ' + error.message);
+		}
 	},
 
-	async getTaskById(taskId) {
-		const response = await api.get(`/api/tasks/${taskId}`);
-		return response.data;
+	async getTaskById(token, taskId) {
+		try {
+			const config = {
+				headers: {
+					'Authorization': token
+				}
+			};
+
+			const response = await api.get(`/api/tasks/tasks/${taskId}`, config);
+			return response.data;
+		} catch (error) {
+			throw new Error('Error fetching task by ID: ' + error.message);
+		}
 	},
 
-	async updateTask(taskId, title, description, isFavorite = false, dueDate = null) {
-		const response = await api.put(`/api/tasks/${taskId}`, { title, description, isFavorite, dueDate });
-		return response.data;
+	async updateTask(token, taskId, title, description, isFavorite = false, dueDate = null) {
+		try {
+			const config = {
+				headers: {
+					'Authorization': token
+				}
+			};
+
+			const response = await api.put(`/api/tasks/tasks/${taskId}`, { title, description, isFavorite, dueDate }, config);
+			return response.data;
+		} catch (error) {
+			throw new Error('Error updating task: ' + error.message);
+		}
 	},
 
-	async deleteTask(taskId) {
-		const response = await api.delete(`/api/tasks/${taskId}`);
-		return response.data;
+	async deleteTask(token, taskId) {
+		try {
+			const config = {
+				headers: {
+					'Authorization': token
+				}
+			};
+
+			const response = await api.delete(`/api/tasks/tasks/${taskId}`, config);
+			return response.data;
+		} catch (error) {
+			throw new Error('Error deleting task: ' + error.message);
+		}
 	},
 };
 
