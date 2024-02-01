@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: '10px',
 		boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
 	},
+	centeredPaper: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -20%)',
+	},
 	datePickerDark: {
 		"& .MuiInputBase-input": {
 			color: "lightgray",

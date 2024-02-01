@@ -153,7 +153,7 @@ const TaskForm = (props) => {
 			)}
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
 				<div className={classes.root}>
-					<Paper className={classes.paper} elevation={3}>
+					<Paper className={`${classes.paper} ${classes.centeredPaper}`} elevation={3}>
 						<Typography variant="h5" gutterBottom>
 							{isAuthenticated ? '' : 'Please Log in to Create Tasks'}
 						</Typography>
