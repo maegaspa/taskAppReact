@@ -8,7 +8,7 @@ import taskService from '../../services/taskService';
 import useStyles from '../../styles/styles';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import authService from "../../services/authService";
+import { jwtDecode } from 'jwt-decode';
 import Cookies from "js-cookie";
 import {useAuthState} from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -30,6 +30,7 @@ const TaskList = () => {
 	const { isAuthenticated } = useAuthState();
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [toDisplayUsername, setToDisplayUsername] = useState('');
 
 
 	useEffect(() => {
@@ -41,6 +42,8 @@ const TaskList = () => {
 		const fetchTasks = async () => {
 			try {
 				const token = Cookies.get();
+				const decodeToken = jwtDecode(token.token);
+				setToDisplayUsername(decodeToken.username);
 				const fetchedTasks = await taskService.getAllTasks(token.token);
 
 				setTasks(fetchedTasks);
@@ -126,7 +129,7 @@ const TaskList = () => {
 				<div className={classes.root}>
 					<Paper className={classes.paper} elevation={3} style={{ width: '80%', margin: 'auto' }}>
 						<Typography variant="h5" gutterBottom>
-							Task List
+							{`${toDisplayUsername}'s Tasks`}
 						</Typography>
 						<TextField
 							label="Search Tasks"
