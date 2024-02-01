@@ -38,7 +38,6 @@ const TaskForm = (props) => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
 	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-
 	const location = useLocation();
 	const propsData = location.state;
 

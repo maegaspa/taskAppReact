@@ -18,6 +18,7 @@ import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import StarIcon from '@mui/icons-material/Star';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import TextField from "@material-ui/core/TextField";
 
 
 const TaskList = () => {
@@ -28,6 +29,7 @@ const TaskList = () => {
 	const [filteredTasks, setFilteredTasks] = useState([]);
 	const { isAuthenticated } = useAuthState();
 	const [selectedTask, setSelectedTask] = useState(null);
+	const [searchTerm, setSearchTerm] = useState('');
 
 
 	useEffect(() => {
@@ -55,6 +57,21 @@ const TaskList = () => {
 		document.body.style.color = darkMode ? 'white' : 'black';
 		setFilteredTasks(tasks);
 	}, [darkMode, tasks]);
+
+	const handleSearchChange = (event) => {
+		setSearchTerm(event.target.value);
+	};
+
+	useEffect(() => {
+		if (searchTerm) {
+			const filtered = tasks.filter(task =>
+				task.title.toLowerCase().includes(searchTerm.toLowerCase())
+			);
+			setFilteredTasks(filtered);
+		} else {
+			setFilteredTasks(tasks);
+		}
+	}, [searchTerm, tasks]);
 
 	const handleAddTask =  () => {
 		navigate('/tasks/create');
@@ -111,6 +128,14 @@ const TaskList = () => {
 						<Typography variant="h5" gutterBottom>
 							Task List
 						</Typography>
+						<TextField
+							label="Search Tasks"
+							variant="outlined"
+							margin="normal"
+							fullWidth
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+						/>
 						<Button onClick={handleSortByDate}>Sort by Date</Button>
 						<Button onClick={handleSortByTitle}>Sort by Title</Button>
 						<Button onClick={handleFilterFavorites}>Show Favorites</Button>
