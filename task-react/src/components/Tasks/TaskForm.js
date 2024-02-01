@@ -23,6 +23,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import {useNavigate} from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const TaskForm = (props) => {
@@ -36,6 +37,7 @@ const TaskForm = (props) => {
 	const { isAuthenticated } = useAuthState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
+	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
 	const location = useLocation();
 	const propsData = location.state;
@@ -101,6 +103,27 @@ const TaskForm = (props) => {
 		setIsFavorite((prev) => !prev);
 	};
 
+	const handleDeleteTask = async () => {
+		setShowDeleteConfirmation(true);
+	};
+
+	const handleCancelDelete = () => {
+		setShowDeleteConfirmation(false);
+	};
+
+	const handleConfirmDelete = async () => {
+		try {
+			const token = Cookies.get();
+			if (propsData) {
+				const deleteTask = await taskService.deleteTask(token.token, propsData.selectedTask['_id']);
+			}
+			setSuccessMessage('Task successfully deleted.');
+			navigate('/tasks')
+		}	catch (error) {
+			console.error('Error deleting task task:', error);
+		}
+	};
+
 	return (
 		<>
 			<div className={classes.switchContainer}>
@@ -121,6 +144,14 @@ const TaskForm = (props) => {
 					{successMessage}
 				</Alert>
 			</Fade>
+			{showDeleteConfirmation && (
+				<Alert severity="warning" className={classes.alert}>
+					<AlertTitle>Confirmation</AlertTitle>
+					Are you sure you want to delete this task?
+					<Button variant="contained" color="primary" onClick={handleConfirmDelete}>Yes</Button>
+					<Button variant="contained" color="default" onClick={handleCancelDelete}>No</Button>
+				</Alert>
+			)}
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
 				<div className={classes.root}>
 					<Paper className={classes.paper} elevation={3}>
@@ -188,6 +219,18 @@ const TaskForm = (props) => {
 								>
 									Cancel
 								</Button>
+								{propsData && (
+									<Button
+										variant="contained"
+										color="error"
+										fullWidth
+										className={classes.button}
+										onClick={handleDeleteTask}
+										startIcon={<DeleteIcon />}
+									>
+										Delete Task
+									</Button>
+								)}
 							</form>
 						)}
 					</Paper>
