@@ -220,10 +220,9 @@ const TaskForm = (props) => {
 								</Button>
 								{propsData && (
 									<Button
-										variant="contained"
-										color="error"
+										variant="outlined"
 										fullWidth
-										className={classes.button}
+										className={classes.deleteButton}
 										onClick={handleDeleteTask}
 										startIcon={<DeleteIcon />}
 									>

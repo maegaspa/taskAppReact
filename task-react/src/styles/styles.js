@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
 	button: {
 		marginTop: theme.spacing(2),
 	},
+	deleteButton: {
+		marginTop: theme.spacing(2),
+		color: '#fd9796'
+	},
 	rowParent: {
 		display: 'flex',
 		textAlign: 'center',
@@ -63,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
 		"& .MuiPaper-root": {
 			backgroundColor: "#424242",
 		},
-
 	},
 	datePickerPopperDark: {
 		"& .MuiPickersPopper-colorPopup .MuiPaper-root": {
