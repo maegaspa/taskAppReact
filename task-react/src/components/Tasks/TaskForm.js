@@ -114,7 +114,7 @@ const TaskForm = (props) => {
 		try {
 			const token = Cookies.get();
 			if (propsData) {
-				const deleteTask = await taskService.deleteTask(token.token, propsData.selectedTask['_id']);
+				await taskService.deleteTask(token.token, propsData.selectedTask['_id']);
 			}
 			setSuccessMessage('Task successfully deleted.');
 			navigate('/tasks')

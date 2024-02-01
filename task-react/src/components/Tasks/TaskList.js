@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -53,17 +53,13 @@ const TaskList = () => {
 		};
 
 		fetchTasks();
-	}, [isAuthenticated]);
+	}, [isAuthenticated, navigate]);
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';
 		document.body.style.color = darkMode ? 'white' : 'black';
 		setFilteredTasks(tasks);
 	}, [darkMode, tasks]);
-
-	const handleSearchChange = (event) => {
-		setSearchTerm(event.target.value);
-	};
 
 	useEffect(() => {
 		if (searchTerm) {
