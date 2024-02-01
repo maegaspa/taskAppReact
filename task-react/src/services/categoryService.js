@@ -18,7 +18,7 @@ const categoryService = {
 		}
 	},
 
-	async createCategory(token, name, description, startDate = false, endDate = null, budget = 0) {
+	async createCategory(token, type, name, description, startDate = false, endDate = null, budget = 0) {
 		try {
 			const config = {
 				headers: {
@@ -28,7 +28,7 @@ const categoryService = {
 				}
 			};
 
-			const response = await api.post('/api/categories/categories', { name, description, startDate, endDate, budget }, config);
+			const response = await api.post('/api/categories/categories', { type, name, description, startDate, endDate, budget }, config);
 			return response.data;
 		} catch (error) {
 			throw new Error('Error creating category: ' + error.message);
@@ -50,7 +50,7 @@ const categoryService = {
 		}
 	},
 
-	async updateCategory(token, categoryId, name, description, startDate = false, endDate = null, budget) {
+	async updateCategory(token, categoryId, type, name, description, startDate = false, endDate = null, budget) {
 		try {
 			const config = {
 				headers: {
@@ -58,7 +58,7 @@ const categoryService = {
 				}
 			};
 
-			const response = await api.put(`/api/categories/categories/${categoryId}`, { name, description, startDate, endDate, budget }, config);
+			const response = await api.put(`/api/categories/categories/${categoryId}`, { type, name, description, startDate, endDate, budget }, config);
 			return response.data;
 		} catch (error) {
 			throw new Error('Error updating category: ' + error.message);

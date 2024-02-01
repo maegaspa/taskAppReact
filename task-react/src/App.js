@@ -7,6 +7,7 @@ import Register from './components/Auth/Register';
 import UserProfile from './components/Auth/UserProfile';
 import TaskList from './components/Tasks/TaskList';
 import TaskForm from './components/Tasks/TaskForm';
+import CategoryForm from './components/Tasks/CategoryForm';
 import Cookies from 'js-cookie';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path="/user-profile" element={<UserProfile/>} />
                 <Route path="/tasks" exact element={<TaskList/>} />
                 <Route path="/tasks/create" element={<TaskForm/>} />
+                <Route path="/category/create" element={<CategoryForm/>} />
               </Routes>
           </Router>
       </DarkModeProvider>
