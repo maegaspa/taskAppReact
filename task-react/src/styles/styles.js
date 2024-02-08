@@ -20,6 +20,23 @@ const useStyles = makeStyles((theme) => ({
 	button: {
 		marginTop: theme.spacing(2),
 	},
+	container: {
+		width: '80%',
+		margin: 'auto',
+		marginTop: theme.spacing(2),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+	},
+	content: {
+		width: '100%',
+	},
+	input: {
+		marginRight: theme.spacing(1),
+	},
+	createButton: {
+		marginTop: theme.spacing(2),
+	},
 	deleteButton: {
 		marginTop: theme.spacing(2),
 		color: '#fd9796'
@@ -76,6 +93,11 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: '#424242', // KO
 		},
 	},
+	highlightedCategory: {
+		backgroundColor: "#f0f0f0",
+		borderLeft: "4px solid #3f51b5",
+		paddingLeft: "12px",
+	}
 }));
 
 export default useStyles;

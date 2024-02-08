@@ -27,11 +27,10 @@ const TaskList = () => {
 	const { darkMode, toggleDarkMode } = useDarkMode();
 	const navigate = useNavigate ();
 	const [tasks, setTasks] = useState([]);
-	const [categories, setCategories] = useState([]);
+	const [selectedCategory, setSelectedCategory] = useState(null); // Définir selectedCategory avec useState
 	const [filteredTasks, setFilteredTasks] = useState([]);
 	const { isAuthenticated } = useAuthState();
 	const [selectedTask, setSelectedTask] = useState(null);
-	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [toDisplayUsername, setToDisplayUsername] = useState('');
 
@@ -55,18 +54,6 @@ const TaskList = () => {
 			}
 		};
 
-		const fetchCategories = async () => {
-			try {
-				const token = Cookies.get();
-				const decodeToken = jwtDecode(token.token);
-				const fetchedCategories = await categoryService.getAllCategories(token.token);
-
-				setCategories(fetchedCategories);
-			} catch (error) {
-				console.error('Error fetching categories:', error);
-			}
-		};
-
 		fetchTasks();
 	}, [isAuthenticated, navigate]);
 
@@ -86,6 +73,24 @@ const TaskList = () => {
 			setFilteredTasks(tasks);
 		}
 	}, [searchTerm, tasks]);
+
+	useEffect(() => {
+		if (selectedCategory) {
+			getTasksByCategory(selectedCategory);
+		} else {
+			setFilteredTasks(tasks);
+		}
+	}, [selectedCategory, tasks]);
+
+	const getTasksByCategory = async (categoryId) => {
+		try {
+			const token = Cookies.get();
+			const tasks = await taskService.getAllTasksByCategory(token.token, categoryId);
+			setTasks(tasks);
+		} catch (error) {
+			console.error('Error fetching tasks by category:', error);
+		}
+	};
 
 	const handleAddTask =  () => {
 		navigate('/tasks/create');
@@ -116,10 +121,6 @@ const TaskList = () => {
 		setSelectedTask(task);
 		navigate('/tasks/create', { state: { selectedTask: task }});
 	};
-	const handleCategoryClick = (category) => {
-		setSelectedCategory(category);
-		navigate('/categories/create', { state: { selectedCategory: category }});
-	};
 	const handleDragEnd = (result) => {
 		if (!result.destination) {
 			return;
@@ -130,10 +131,6 @@ const TaskList = () => {
 		reorderedTasks.splice(result.destination.index, 0, removed);
 
 		setFilteredTasks(reorderedTasks);
-	};
-
-	const handleAddCategory = () => {
-		navigate('/category/create');
 	};
 
 	return (
@@ -203,16 +200,6 @@ const TaskList = () => {
 							onClick={handleAddTask}
 						>
 							Add Task
-						</Button>
-						<Button
-							variant="contained"
-							color="primary"
-							fullWidth
-							className={classes.button}
-							onClick={handleAddCategory}
-							style={{marginTop: '8px', backgroundColor: '#aaff9d'}}
-						>
-							Add Category
 						</Button>
 					</Paper>
 				</div>

@@ -24,6 +24,7 @@ import Fade from '@mui/material/Fade';
 import {useNavigate} from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import categoryService from "../../services/categoryService";
 
 
 const TaskForm = (props) => {
@@ -40,6 +41,8 @@ const TaskForm = (props) => {
 	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 	const location = useLocation();
 	const propsData = location.state;
+	const [categories, setCategories] = useState([]);
+	const [selectedCategory, setSelectedCategory] = useState('');
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';
@@ -53,6 +56,7 @@ const TaskForm = (props) => {
 			setTaskDescription(selectedTask.description);
 			setIsFavorite(selectedTask.isFavorite);
 			setDueDate(new dayjs(selectedTask.dueDate));
+			setSelectedCategory(selectedTask.category);
 		}
 	}, [propsData]);
 	const handleCloseAlert = (type) => {
@@ -77,10 +81,10 @@ const TaskForm = (props) => {
 			}
 			const token = Cookies.get();
 			if (propsData) {
-				const updateTask = await taskService.updateTask(token.token, propsData.selectedTask['_id'], taskTitle, taskDescription, isFavorite, dueDate);
+				const updateTask = await taskService.updateTask(token.token, propsData.selectedTask['_id'], taskTitle, taskDescription, selectedCategory, isFavorite, dueDate);
 				console.log('Task successfully saved:', updateTask);
 			} else {
-				const newTask = await taskService.createTask(token.token, taskTitle, taskDescription, isFavorite, dueDate);
+				const newTask = await taskService.createTask(token.token, taskTitle, taskDescription, selectedCategory, isFavorite, dueDate);
 				console.log('Task successfully created:', newTask);
 			}
 
@@ -90,6 +94,7 @@ const TaskForm = (props) => {
 			setDueDate();
 			setErrorMessage('')
 			setSuccessMessage('Task saved successfully.');
+			setSelectedCategory('');
 			setTimeout(() => {
 				handleCloseAlert('success');
 			}, 5000);
@@ -97,6 +102,21 @@ const TaskForm = (props) => {
 			console.error('Error saving task:', error);
 		}
 	};
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const token = Cookies.get();
+				const fetchedCategories = await categoryService.getAllCategories(token.token);
+				setCategories(fetchedCategories);
+			} catch (error) {
+				console.error('Error fetching categories:', error);
+			}
+		};
+
+		fetchCategories();
+	}, []);
+
 
 	const handleFavoriteToggle = () => {
 		setIsFavorite((prev) => !prev);
@@ -200,6 +220,26 @@ const TaskForm = (props) => {
 										</IconButton>
 									</div>
 								</div>
+								<TextField
+									select
+									value={selectedCategory}
+									InputLabelProps={{shrink: true}}
+									label="Category"
+									variant="outlined"
+									margin="normal"
+									fullWidth
+									onChange={(e) => setSelectedCategory(e.target.value)}
+									SelectProps={{
+										native: true,
+									}}
+								>
+									<option value=""></option>
+									{categories.map((category) => (
+										<option key={category._id} value={category._id}>
+											{category.name}
+										</option>
+									))}
+								</TextField>
 								<Button
 									variant="contained"
 									color="primary"
