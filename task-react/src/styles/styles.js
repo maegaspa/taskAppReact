@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: "12px",
 	},
 	normalCategory: {
-		backgroundColor: '#303030',
+		backgroundColor: 'dark',
 		borderLeft: "4px solid #3f51b5",
 		paddingLeft: "12px",
 	}
