@@ -2,36 +2,41 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
 		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: '100vh',
+		justifyContent: 'top',
 	},
 	navbar: {
+		background: '#424242',
 		backgroundColor: '#424242'
 	},
 	paper: {
+		marginTop: '8%',
 		padding: theme.spacing(4),
-		width: '60%',
+		width: '80%',
 		textAlign: 'center',
 	},
 	paperForm: {
 		padding: theme.spacing(4),
-		width: '30%',
+		width: '80%',
 		textAlign: 'center',
 	},
 	switchContainer: {
 		position: 'absolute',
-		top: 20,
-		right: 100,
+		top: '15%',
+		left: '95%',
+		transform: 'translate(-70%, -80%)',
 	},
 	button: {
 		marginTop: theme.spacing(2),
 	},
 	container: {
+		marginTop: '50%',
 		width: '80%',
 		margin: 'auto',
-		marginTop: theme.spacing(15),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'flex-start',
@@ -74,10 +79,7 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
 	},
 	centeredPaper: {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -20%)',
+		//may try
 	},
 	datePickerDark: {
 		"& .MuiInputBase-input": {

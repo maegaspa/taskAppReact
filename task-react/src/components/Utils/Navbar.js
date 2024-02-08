@@ -14,7 +14,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<AppBar position="static" className={classes.navbar}>
+		<AppBar className={classes.navbar} >
 			<Toolbar>
 				<IconButton edge="start" color="inherit" aria-label="home" component={Link} to="/tasks">
 					<HomeIcon />

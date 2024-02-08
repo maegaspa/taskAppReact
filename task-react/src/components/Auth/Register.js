@@ -36,6 +36,9 @@ const Register = () => {
 			// Handle errors
 		}
 	};
+	const handleCancel =  () => {
+		navigate('/login');
+	};
 
 	return (
 		<>
@@ -78,6 +81,15 @@ const Register = () => {
 							onClick={handleRegister}
 						>
 							Register
+						</Button>
+						<Button
+							variant="contained"
+							color="light"
+							fullWidth
+							className={classes.button}
+							onClick={handleCancel}
+						>
+							Cancel
 						</Button>
 					</Paper>
 				</div>

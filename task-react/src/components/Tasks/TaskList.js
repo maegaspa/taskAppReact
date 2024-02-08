@@ -162,67 +162,64 @@ const TaskList = ({ selectedCategory }) => {
 				/>
 			</div>
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
-				<div className={classes.root}>
-					<Paper className={classes.paper} elevation={3} style={{ margin: 'auto' }}>
-						<Typography variant="h5" gutterBottom>
-							{`${toDisplayUsername}'s Tasks`}
-						</Typography>
-						<TextField
-							label="Search Tasks"
-							variant="outlined"
-							margin="normal"
-							fullWidth
-							value={searchTerm}
-							onChange={(e) => setSearchTerm(e.target.value)}
-						/>
-						<Button onClick={handleSortByDate}>Sort by Date</Button>
-						<Button onClick={handleSortByTitle}>Sort by Title</Button>
-						<Button onClick={handleFilterFavorites}>Show Favorites</Button>
-						<Button onClick={handleResetFilters}>Reset Filters</Button>
-						<DragDropContext onDragEnd={handleDragEnd}>
-							<Droppable droppableId="droppable">
-								{(provided) => (
-									<List
-										{...provided.droppableProps}
-										ref={provided.innerRef}
-									>
-										{filteredTasks.map((task, index) => (
-											<Draggable key={task['_id']} draggableId={task['_id']} index={index}>
-												{(provided) => (
-													<ListItem
-														onClick={() => handleTaskClick(task)}
-														ref={provided.innerRef}
-														{...provided.draggableProps}
-														{...provided.dragHandleProps}
-														className={classes.listItem}
-													>
-														<ListItemText primary={task.title} secondary={task.description} />
-														{task.isFavorite && (
-															<IconButton className={classes.favoriteIcon}>
-																<StarIcon />
-															</IconButton>
-														)}
-													</ListItem>
-												)}
-											</Draggable>
-										))}
-										{provided.placeholder}
-									</List>
-								)}
-							</Droppable>
-						</DragDropContext>
-
-						<Button
-							variant="contained"
-							color="primary"
-							fullWidth
-							className={classes.button}
-							onClick={handleAddTask}
-						>
-							Add Task
-						</Button>
-					</Paper>
-				</div>
+				<Paper className={classes.paper} elevation={3} >
+					<Typography variant="h5" gutterBottom>
+						{`${toDisplayUsername}'s Tasks`}
+					</Typography>
+					<TextField
+						label="Search Tasks"
+						variant="outlined"
+						margin="normal"
+						fullWidth
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+					<Button onClick={handleSortByDate}>Sort by Date</Button>
+					<Button onClick={handleSortByTitle}>Sort by Title</Button>
+					<Button onClick={handleFilterFavorites}>Show Favorites</Button>
+					<Button onClick={handleResetFilters}>Reset Filters</Button>
+					<DragDropContext onDragEnd={handleDragEnd}>
+						<Droppable droppableId="droppable">
+							{(provided) => (
+								<List
+									{...provided.droppableProps}
+									ref={provided.innerRef}
+								>
+									{filteredTasks.map((task, index) => (
+										<Draggable key={task['_id']} draggableId={task['_id']} index={index}>
+											{(provided) => (
+												<ListItem
+													onClick={() => handleTaskClick(task)}
+													ref={provided.innerRef}
+													{...provided.draggableProps}
+													{...provided.dragHandleProps}
+													className={classes.listItem}
+												>
+													<ListItemText primary={task.title} secondary={task.description} />
+													{task.isFavorite && (
+														<IconButton className={classes.favoriteIcon}>
+															<StarIcon />
+														</IconButton>
+													)}
+												</ListItem>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</List>
+							)}
+						</Droppable>
+					</DragDropContext>
+					<Button
+						variant="contained"
+						color="primary"
+						fullWidth
+						className={classes.button}
+						onClick={handleAddTask}
+					>
+						Add Task
+					</Button>
+				</Paper>
 			</ThemeProvider>
 		</>
 	);
