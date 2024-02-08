@@ -47,7 +47,7 @@ const Register = () => {
 			</div>
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
 				<div className={classes.root}>
-					<Paper className={classes.paper} elevation={3}>
+					<Paper className={classes.paperForm} elevation={3}>
 						<Typography variant="h5" gutterBottom>
 							Register
 						</Typography>

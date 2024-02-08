@@ -151,7 +151,7 @@ const CategoryForm = (props) => {
 			)}
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
 				<div className={classes.root}>
-					<Paper className={`${classes.paper} ${classes.centeredPaper}`} elevation={3}>
+					<Paper className={`${classes.paperForm} ${classes.centeredPaper}`} elevation={3}>
 						<Typography variant="h5" gutterBottom>
 							Create / Edit Category
 						</Typography>

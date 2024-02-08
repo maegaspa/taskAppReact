@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CategoryMenu from './CategoryMenu';
 import TaskList from './TaskList';
+import Navbar from '../Utils/Navbar';
 import { Grid } from '@material-ui/core';
 
 
@@ -13,14 +14,17 @@ const TaskPage = () => {
 	};
 
 	return (
-		<Grid container>
-			<Grid item xs={3}> {}
-				<CategoryMenu onCategorySelect={handleCategorySelect} />
+		<>
+			<Navbar />
+			<Grid container>
+				<Grid item xs={3}> {}
+					<CategoryMenu onCategorySelect={handleCategorySelect} />
+				</Grid>
+				<Grid item xs={9}> {}
+					<TaskList selectedCategory={selectedCategory} tasks={tasks} />
+				</Grid>
 			</Grid>
-			<Grid item xs={9}> {}
-				<TaskList selectedCategory={selectedCategory} tasks={tasks} />
-			</Grid>
-		</Grid>
+		</>
 	);
 };
 

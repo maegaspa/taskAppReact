@@ -163,7 +163,7 @@ const TaskList = ({ selectedCategory }) => {
 			</div>
 			<ThemeProvider theme={createTheme({ palette: { type: darkMode ? 'dark' : 'light' } })}>
 				<div className={classes.root}>
-					<Paper className={classes.paper} elevation={3} style={{ width: '80%', margin: 'auto' }}>
+					<Paper className={classes.paper} elevation={3} style={{ margin: 'auto' }}>
 						<Typography variant="h5" gutterBottom>
 							{`${toDisplayUsername}'s Tasks`}
 						</Typography>

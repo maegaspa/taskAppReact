@@ -7,15 +7,23 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		height: '100vh',
 	},
+	navbar: {
+		backgroundColor: '#424242'
+	},
 	paper: {
 		padding: theme.spacing(4),
-		width: 400,
+		width: '60%',
+		textAlign: 'center',
+	},
+	paperForm: {
+		padding: theme.spacing(4),
+		width: '30%',
 		textAlign: 'center',
 	},
 	switchContainer: {
-		position: 'fixed',
-		top: 10,
-		right: 10,
+		position: 'absolute',
+		top: 20,
+		right: 100,
 	},
 	button: {
 		marginTop: theme.spacing(2),
@@ -23,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 	container: {
 		width: '80%',
 		margin: 'auto',
-		marginTop: theme.spacing(2),
+		marginTop: theme.spacing(15),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'flex-start',
