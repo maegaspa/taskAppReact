@@ -22,17 +22,17 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import TextField from "@material-ui/core/TextField";
 
 
-const TaskList = () => {
+const TaskList = ({ selectedCategory }) => {
 	const classes = useStyles();
 	const { darkMode, toggleDarkMode } = useDarkMode();
 	const navigate = useNavigate ();
 	const [tasks, setTasks] = useState([]);
-	const [selectedCategory, setSelectedCategory] = useState(null); // Définir selectedCategory avec useState
 	const [filteredTasks, setFilteredTasks] = useState([]);
 	const { isAuthenticated } = useAuthState();
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [toDisplayUsername, setToDisplayUsername] = useState('');
+	const [prevSelectedCategory, setPrevSelectedCategory] = useState(null);
 
 
 	useEffect(() => {
@@ -75,12 +75,20 @@ const TaskList = () => {
 	}, [searchTerm, tasks]);
 
 	useEffect(() => {
-		if (selectedCategory) {
-			getTasksByCategory(selectedCategory);
-		} else {
-			setFilteredTasks(tasks);
+		if (selectedCategory === 667) {
+			fetchTasks();
+			setPrevSelectedCategory(667);
 		}
-	}, [selectedCategory, tasks]);
+		else if (selectedCategory && selectedCategory !== prevSelectedCategory && selectedCategory !== 667) {
+			getTasksByCategory(selectedCategory);
+			setPrevSelectedCategory(selectedCategory);
+		}
+	}, [selectedCategory, prevSelectedCategory]);
+
+	useEffect(() => {
+		setPrevSelectedCategory(selectedCategory);
+	}, [selectedCategory]);
+
 
 	const getTasksByCategory = async (categoryId) => {
 		try {
@@ -92,6 +100,18 @@ const TaskList = () => {
 		}
 	};
 
+	const fetchTasks = async () => {
+		try {
+			const token = Cookies.get();
+			const decodeToken = jwtDecode(token.token);
+			setToDisplayUsername(decodeToken.username);
+			const fetchedTasks = await taskService.getAllTasks(token.token);
+
+			setTasks(fetchedTasks);
+		} catch (error) {
+			console.error('Error fetching tasks:', error);
+		}
+	};
 	const handleAddTask =  () => {
 		navigate('/tasks/create');
 	};

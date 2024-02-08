@@ -97,6 +97,11 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "#f0f0f0",
 		borderLeft: "4px solid #3f51b5",
 		paddingLeft: "12px",
+	},
+	normalCategory: {
+		backgroundColor: '#303030',
+		borderLeft: "4px solid #3f51b5",
+		paddingLeft: "12px",
 	}
 }));
 

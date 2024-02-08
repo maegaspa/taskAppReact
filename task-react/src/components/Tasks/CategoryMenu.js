@@ -14,13 +14,14 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import ListItem from '@material-ui/core/ListItem';
 import taskService from '../../services/taskService';
 
-const CategoryMenu = ({ setSelectedCategory }) => {
+const CategoryMenu = ({ onCategorySelect }) => {
 	const classes = useStyles();
 	const navigate = useNavigate();
 	const { isAuthenticated } = useAuthState();
 	const [categories, setCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredCategories, setFilteredCategories] = useState([]);
+	const [previousSelected, setPreviousSelected] = useState(null);
 
 	useEffect(() => {
 		if (!isAuthenticated) {
@@ -56,9 +57,11 @@ const CategoryMenu = ({ setSelectedCategory }) => {
 			setFilteredCategories(categories);
 		}
 	}, [searchTerm, categories]);
-
 	const handleCategoryClick = (categoryId) => {
-		setSelectedCategory(categoryId);
+		if (categoryId !== previousSelected) {
+			onCategorySelect(categoryId);
+			setPreviousSelected(categoryId);
+		}
 	};
 
 	const handleCreateCategory = () => {
@@ -75,6 +78,11 @@ const CategoryMenu = ({ setSelectedCategory }) => {
 		reorderedCategories.splice(result.destination.index, 0, removed);
 
 		setFilteredCategories(reorderedCategories);
+	};
+
+	const handleShowAllCategories = () => {
+		onCategorySelect(667)
+		setPreviousSelected(667);
 	};
 
 	return (
@@ -103,11 +111,11 @@ const CategoryMenu = ({ setSelectedCategory }) => {
 									>
 										{(provided) => (
 											<ListItem
-												onClick={() => handleCategoryClick(category._id)}
+												onClick={() => handleCategoryClick(category['_id'])}
 												ref={provided.innerRef}
 												{...provided.draggableProps}
 												{...provided.dragHandleProps}
-												className={classes.listItem}
+												className={`${classes.listItem} ${previousSelected === category._id ? classes.highlightedCategory : ''} ${previousSelected === 667 ? classes.normalCategory : ''}`}
 											>
 												<ListItemText primary={category.name} />
 											</ListItem>
@@ -126,6 +134,14 @@ const CategoryMenu = ({ setSelectedCategory }) => {
 					className={classes.createButton}
 				>
 					Create Category
+				</Button>
+				<Button
+					variant="contained"
+					color="default"
+					onClick={handleShowAllCategories}
+					className={classes.createButton}
+				>
+					All categories
 				</Button>
 			</div>
 		</div>
