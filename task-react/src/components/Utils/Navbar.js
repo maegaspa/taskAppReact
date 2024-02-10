@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, Avatar } from '@material-ui/core';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 import useStyles from '../../styles/styles';
 
 const Navbar = () => {
@@ -22,6 +23,11 @@ const Navbar = () => {
 				<Typography variant="h6" style={{ flexGrow: 1 }}>
 					Task Manager
 				</Typography>
+				<IconButton color="inherit" aria-label="profile" component={Link} to="/user-profile">
+					<Avatar>
+						<PersonIcon />
+					</Avatar>
+				</IconButton>
 				<IconButton edge="end" color="inherit" aria-label="logout" onClick={handleLogout}>
 					<LogoutIcon />
 				</IconButton>

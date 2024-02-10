@@ -5,6 +5,7 @@ import { DarkModeProvider } from './context/DarkModeContext';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import UserProfile from './components/Auth/UserProfile';
+import UserProfileForm from './components/Auth/UserProfileForm';
 import CategoryForm from './components/Tasks/CategoryForm';
 import TaskPage from './components/Tasks/TaskPage';
 import TaskForm from './components/Tasks/TaskForm';
@@ -26,6 +27,7 @@ const App = () => {
                 <Route path="/login" element={<Login/>} />
                 <Route path="/register" element={<Register/>} />
                 <Route path="/user-profile" element={<UserProfile/>} />
+                <Route path="/user-profile/modify" element={<UserProfileForm/>} />
                 <Route path="/tasks" exact element={<TaskPage/>} />
                 <Route path="/tasks/create" element={<TaskForm/>} />
                 <Route path="/category/create" element={<CategoryForm/>} />

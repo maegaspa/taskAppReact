@@ -19,6 +19,20 @@ const useStyles = makeStyles((theme) => ({
 		width: '80%',
 		textAlign: 'center',
 	},
+	paperUserProfile: {
+		marginTop: '8%',
+		marginLeft: '20%',
+		padding: theme.spacing(4),
+		width: '50%',
+		textAlign: 'center',
+	},
+	paperUserProfileForm: {
+		marginTop: '8%',
+		marginLeft: '9%',
+		padding: theme.spacing(5),
+		width: '65%',
+		textAlign: 'center',
+	},
 	paperForm: {
 		padding: theme.spacing(4),
 		width: '80%',
@@ -43,6 +57,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 	content: {
 		width: '100%',
+	},
+	avatar: {
+		width: theme.spacing(10),
+		height: theme.spacing(10),
+		margin: 'auto',
+		marginBottom: theme.spacing(2),
 	},
 	input: {
 		marginRight: theme.spacing(1),

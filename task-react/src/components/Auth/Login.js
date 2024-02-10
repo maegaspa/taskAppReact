@@ -13,6 +13,9 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useDarkMode } from '../../context/DarkModeContext';
 import useStyles from '../../styles/styles';
+import {IconButton} from "@material-ui/core";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
 
 const Login = () => {
 	const classes = useStyles();
@@ -21,6 +24,7 @@ const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const { darkMode, toggleDarkMode } = useDarkMode();
+	const [showPassword, setShowPassword] = useState(false);
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';
@@ -37,6 +41,10 @@ const Login = () => {
 		} catch (error) {
 			// Handle errors
 		}
+	};
+
+	const handleTogglePasswordVisibility = () => {
+		setShowPassword((prevShowPassword) => !prevShowPassword);
 	};
 
 	return (
@@ -64,12 +72,19 @@ const Login = () => {
 							/>
 							<TextField
 								label="Password"
-								type="password"
+								type={showPassword ? 'text' : 'password'}
 								variant="outlined"
 								margin="normal"
 								fullWidth
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
+								InputProps={{
+									endAdornment: (
+										<IconButton onClick={handleTogglePasswordVisibility} edge="end">
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									),
+								}}
 							/>
 						</form>
 						<Button
