@@ -20,14 +20,13 @@ const userService = {
 
 			reader.onloadend = async () => {
 				const buffer = reader.result;
-				console.log(buffer);
 				formData.append('name', profilePicture.name);
 				formData.append('size', profilePicture.size);
 				formData.append('type', profilePicture.type);
 				formData.append('buffer', buffer);
 				formData.append('username', username);
 				formData.append('password', password);
-
+				formData.append('path', URL.createObjectURL(profilePicture));
 
 				const config = {
 					headers: {
@@ -36,14 +35,9 @@ const userService = {
 					},
 				};
 
-				console.log('zinzin');
-				console.log(formData);
 				for (var key of formData.entries()) {
 					console.log(key[0] + ', ' + key[1]);
 				}
-				console.log(profilePicture);
-				// console.log(formData.file);
-				// console.log(formData.test);
 
 				const response = await api.post(`/api/users/profile`, formData, config);
 				return response.data;
