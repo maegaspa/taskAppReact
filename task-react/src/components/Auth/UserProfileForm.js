@@ -14,12 +14,10 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import {useNavigate} from "react-router-dom";
-import { useLocation } from 'react-router-dom';
 import userService from "../../services/userService";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import {IconButton} from "@material-ui/core";
-import authService from "../../services/authService";
 import {jwtDecode} from "jwt-decode";
 
 
@@ -27,16 +25,14 @@ const UserProfileForm = (props) => {
 	const classes = useStyles();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [profilePicture, setProfilePicture] = useState(null); // Add state for profile picture
+	const [profilePicture, setProfilePicture] = useState(null);
 	const navigate = useNavigate ();
 	const { darkMode, toggleDarkMode } = useDarkMode();
 	const { isAuthenticated } = useAuthState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
-	const location = useLocation();
-	const propsData = location.state;
 	const [showPassword, setShowPassword] = useState(false);
-
+	const [formDataPP, setformDataPP] = useState(false);
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';
@@ -48,7 +44,6 @@ const UserProfileForm = (props) => {
 
 	const handleSaveUserProfile = async () => {
 		try {
-			console.log(profilePicture);
 			if (!username || !password) {
 				setErrorMessage('Please fill in both the username and password fields.');
 				setTimeout(() => {
@@ -57,8 +52,8 @@ const UserProfileForm = (props) => {
 				return;
 			}
 			const token = Cookies.get();
-			const updateTask = await userService.updateUserProfile(token.token, username, password, profilePicture);
-			console.log('User successfully saved:', updateTask);
+			const user = await userService.updateUserProfile(token.token, username, password, formDataPP);
+			console.log('User successfully saved:', user);
 
 			setTimeout(() => {
 				handleCloseAlert('success');
@@ -68,25 +63,9 @@ const UserProfileForm = (props) => {
 		}
 	};
 
-	const handleSavePP = async () => {
-		try {
-			if (!profilePicture) {
-				setErrorMessage('Please upload a file [10mo].');
-				setTimeout(() => {
-					handleCloseAlert('error');
-				}, 5000);
-				return;
-			}
-			const token = Cookies.get();
-			const updatePP = await userService.saveProfilePicture(token.token, profilePicture);
-			console.log('PP successfully saved:', updatePP);
-
-			setTimeout(() => {
-				handleCloseAlert('success');
-			}, 5000);
-		} catch (error) {
-			console.error('Error saving PP:', error);
-		}
+	const handleSetPP = (e) => {
+		setformDataPP(e.target.files[0]);
+		setProfilePicture(URL.createObjectURL(e.target.files[0]));
 	};
 
 	const handleCloseAlert = (type) => {
@@ -132,21 +111,19 @@ const UserProfileForm = (props) => {
 							{isAuthenticated ? '' : 'Please log again.'}
 						</Typography>
 						{isAuthenticated && (
-							<form>
+							<form >
 								<div>
 									<Typography variant="subtitle1">Profile Picture</Typography>
 									<input
 										type="file"
 										accept="image/*"
-										onChange={(e) => setProfilePicture(e.target.files[0])}
+										onChange={handleSetPP}
+										name="profilePicture"
+										id="profilePicture"
 									/>
-									<Button
-										variant="outlined"
-										color="primary"
-										onClick={handleSavePP}
-									>
-										Modify
-									</Button>
+									<div className={classes.circularImageContainer}>
+										<img src={profilePicture} alt="Preview image" className={classes.circularImage} />
+									</div>
 								</div>
 								<TextField
 									label="Username"

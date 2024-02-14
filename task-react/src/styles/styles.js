@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	navbar: {
 		background: '#424242',
-		backgroundColor: '#424242'
+		backgroundColor: '#424242',
+		position: 'sticky',
 	},
 	paper: {
 		marginTop: '8%',
@@ -132,6 +133,18 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: 'dark',
 		borderLeft: "4px solid #3f51b5",
 		paddingLeft: "12px",
+	},
+	circularImageContainer: {
+		width: '150px',
+		height: '150px',
+		overflow: 'hidden',
+		borderRadius: '50%',
+		marginLeft: '25%',
+	},
+	circularImage: {
+		width: '100%',
+		height: '100%',
+		objectFit: 'cover',
 	}
 }));
 
