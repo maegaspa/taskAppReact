@@ -33,6 +33,23 @@ const UserProfileForm = (props) => {
 	const [successMessage, setSuccessMessage] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 	const [formDataPP, setformDataPP] = useState(false);
+	const [user, setUser] = useState(null);
+
+
+	useEffect(() => {
+		const fetchUserProfile = async () => {
+			try {
+				const token = Cookies.get();
+				const userData = await userService.getUserProfile(token.token);
+				setUser(userData);
+				setProfilePicture(userData.profilePicturePath);
+			} catch (error) {
+				console.error('Error fetching user profile:', error);
+			}
+		};
+
+		fetchUserProfile();
+	}, []);
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? '#303030' : 'white';

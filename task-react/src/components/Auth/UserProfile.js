@@ -59,9 +59,7 @@ const UserProfile = () => {
 					</Typography>
 					{user && (
 						<>
-							<div>
-								<img alt="Profile Picture" src={user.profilePicturePath} className={classes.avatar} />
-							</div>
+								<img src={user.profilePicturePath} alt="Preview image" className={`${classes.circularImage} ${classes.circularImageContainerCentered}`} />
 							<Typography variant="h6" gutterBottom>
 								Username: {user.username}
 							</Typography>

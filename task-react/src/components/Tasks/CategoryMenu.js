@@ -115,7 +115,7 @@ const CategoryMenu = ({ onCategorySelect }) => {
 												ref={provided.innerRef}
 												{...provided.draggableProps}
 												{...provided.dragHandleProps}
-												className={`${classes.listItem} ${previousSelected === category._id ? classes.highlightedCategory : ''} ${previousSelected === 667 ? classes.normalCategory : ''}`}
+												className={`${classes.listItem} ${classes.truncateText} ${previousSelected === category._id ? classes.highlightedCategory : ''} ${previousSelected === 667 ? classes.normalCategory : ''}`}
 											>
 												<ListItemText primary={category.name} />
 											</ListItem>

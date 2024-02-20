@@ -193,7 +193,7 @@ const TaskList = ({ selectedCategory }) => {
 													ref={provided.innerRef}
 													{...provided.draggableProps}
 													{...provided.dragHandleProps}
-													className={classes.listItem}
+													className={`${classes.listItem} ${classes.truncateText}`}
 												>
 													<ListItemText primary={task.title} secondary={task.description} />
 													{task.isFavorite && (

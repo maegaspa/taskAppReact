@@ -145,6 +145,17 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		height: '100%',
 		objectFit: 'cover',
+	},
+	circularImageContainerCentered: {
+		width: '150px',
+		height: '150px',
+		overflow: 'hidden',
+		borderRadius: '50%',
+	},
+	truncateText: {
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
 	}
 }));
 
